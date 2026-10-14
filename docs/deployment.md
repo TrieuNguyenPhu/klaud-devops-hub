@@ -11,7 +11,7 @@ The workflow uses Node 24, `npm ci`, lint, strict typecheck, unit tests, product
 - `production` environment is deployed only from `main`.
 - Require **Quality gate** before merging to `main`, strict up-to-date checks, no force pushes or branch deletion. A sole maintainer can merge without requiring another person's review; CI remains required.
 
-The old `VERCEL_PROJECT_ID` secret is kept only during the explicitly requested one-time migration. `.github/workflows/vercel-migrate.yml` is temporary and will be removed after the exact old project is retired. No token is copied out of GitHub Secrets or committed. Do not print environment variables or upload `.vercel/` as an artifact.
+Project cleanup is a one-time administrative operation, separate from the recurring release workflow. The old `VERCEL_PROJECT_ID` secret is not used for new releases; the new project is identified by the repository variable. No token is copied out of GitHub Secrets or committed. Do not print environment variables or upload `.vercel/` as an artifact.
 
 ## Production verification
 
@@ -25,6 +25,6 @@ If post-deploy verification fails and the project has a previous production depl
 
 After an emergency rollback, reconcile Git with production by reverting the faulty change on a branch, passing CI and merging the revert. This creates a new passing Git revision and redeploys it. Vercel Hobby permits instant rollback only to the previous production deployment; use a Git revert and a fresh deployment when a deeper rollback is needed.
 
-The migration's destructive operation checks the old project's exact hostname, the new project's ownership of the live hostname, its READY production target SHA and the same SHA returned by health before deleting only the old project. The new site is verified before the old hostname is removed.
+For cleanup, confirm the authenticated account/team and exact project IDs against a fresh inventory before deleting. The user explicitly requested removing all old projects in both accounts; the current account has been verified empty. The other account requires separate authentication before its projects can be listed or removed. New project creation awaits the user's choice of destination account and Vercel's acceptance of the requested hostname.
 
 References: [Vercel GitHub Actions](https://vercel.com/kb/guide/how-can-i-use-github-actions-with-vercel), [Git deployment configuration](https://vercel.com/docs/project-configuration/git-configuration), [rollback](https://vercel.com/docs/cli/rollback).
