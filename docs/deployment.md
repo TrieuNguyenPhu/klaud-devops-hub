@@ -1,6 +1,6 @@
 # Git → quality gates → Vercel
 
-Production origin: [klaud-devops-hub.vercel.app](https://klaud-devops-hub.vercel.app). Vercel project: `klaud-devops`, team: `trieu-nguyen-phus-projects`.
+Production origin: [klaud-devops-hub.vercel.app](https://klaud-devops-hub.vercel.app). Repository: `TrieuNguyenPhu/klaud-devops-hub`. Vercel project: `klaud-devops-hub`, team: `trieu-nguyen-phus-projects`.
 
 `main` is the production source of truth. PRs run **Quality gate**; passing merges/pushes on `main` build and deploy to the new Vercel project. The Vercel native automatic Git build is disabled to avoid releasing before the GitHub quality gate.
 
@@ -15,7 +15,7 @@ The workflow uses Node 24, `npm ci`, lint, strict typecheck, unit tests, product
 
 Project cleanup is a one-time administrative operation, separate from the recurring release workflow. The old `VERCEL_PROJECT_ID` secret is not used for new releases; the new project is identified by the repository variable. No token is copied out of GitHub Secrets or committed. Do not print environment variables or upload `.vercel/` as an artifact.
 
-For recurring releases, use a Vercel token scoped to the production team and rotate it before expiration. CLI OAuth login credentials expire within hours and are suitable only for temporary deployment validation, not ongoing CI/CD.
+For recurring releases, use a Vercel token scoped to the production project and rotate it before expiration. The current CI token expires on 14 October 2027. CLI OAuth login credentials expire within hours and are suitable only for temporary deployment validation, not ongoing CI/CD.
 
 ## Production verification
 
