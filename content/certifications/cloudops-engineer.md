@@ -39,4 +39,3 @@ Dựng workload lab nhỏ và tạo ba tình huống: ứng dụng lỗi, quyề
 - [VPC tại hub](/blog/aws-vpc-duong-di-goi-tin)
 
 Nội dung này phục vụ tự học, không phải đề thi thật. Không dùng tên phiên bản cũ để suy ra phạm vi SOA-C03.
-

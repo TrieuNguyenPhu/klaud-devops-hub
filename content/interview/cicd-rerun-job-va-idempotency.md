@@ -25,4 +25,3 @@ Gắn bản triển khai với commit hoặc artifact bất biến. Kiểm tra p
 GitHub cho phép chạy lại workflow hoặc job; việc có nút chạy lại không chứng minh mọi tác vụ bên trong đều an toàn để lặp. [GitHub: chạy lại workflows](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs)
 
 Bài tự luyện: với từng bước pipeline, ghi tác động bên ngoài và điều kiện để retry. Nếu không biết bước nào đã hoàn thành, thêm bằng chứng trạng thái trước khi thiết kế tự động retry.
-

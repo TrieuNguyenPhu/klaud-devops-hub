@@ -25,4 +25,3 @@ Quy tắc NACL được xét theo thứ tự số; một deny sớm có thể th
 Đừng mở tất cả cổng để chữa triệu chứng. Đọc route, listener, security group, NACL và flow logs theo cùng một kết nối.
 
 Bài tự luyện: vẽ hai chiều client–server, điền cổng nguồn, cổng đích của từng gói rồi đối chiếu quy tắc.
-

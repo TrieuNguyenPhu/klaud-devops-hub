@@ -47,4 +47,3 @@ Thu metrics, logs và traces theo câu hỏi vận hành cụ thể. Mô phỏng
 ## Dự án kết thúc và hướng chứng chỉ
 
 Đóng gói một dịch vụ vào repo có manifests, pipeline, tài liệu vận hành và bằng chứng lab. Chọn [CKAD](/certifications/ckad) nếu tập trung ứng dụng, [CKA](/certifications/cka) nếu tập trung quản trị, hoặc [CKS](/certifications/cks) khi đã có nền quản trị và cần bảo mật sâu hơn.
-

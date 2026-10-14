@@ -31,4 +31,3 @@ terraform state list
 Lệnh liệt kê địa chỉ tài nguyên giúp hiểu state hiện tại nhưng không xác nhận khóa đã bị bỏ.
 
 Bài tự luyện: mô phỏng hai thao tác trong backend lab có hỗ trợ locking, đọc lỗi và giải thích cách xử lý.
-

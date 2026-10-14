@@ -1,0 +1,128 @@
+name: Knowledge Hub CI/CD
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: knowledge-hub-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+env:
+  NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000' }}
+  VERCEL_TELEMETRY_DISABLED: 1
+jobs:
+  quality:
+    name: Quality gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm audit --omit=dev --audit-level=high
+      - run: npm run build
+      - run: npm run check:private
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: failure()
+        with:
+          name: browser-failure-${{ github.run_id }}
+          path: .qa/test-results/
+          include-hidden-files: true
+          retention-days: 7
+  deploy:
+    name: Deploy production
+    needs: quality
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.VERCEL_PROJECT_ID != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: production
+      url: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+    concurrency:
+      group: vercel-production
+      cancel-in-progress: false
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Pull production configuration
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx --yes vercel@64.0.2 pull --yes --environment=production --token="$VERCEL_TOKEN"
+      - name: Build deployment artifacts
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_GIT_COMMIT_SHA: ${{ github.sha }}
+        run: npx --yes vercel@64.0.2 build --prod --token="$VERCEL_TOKEN"
+      - run: npm run check:private
+      - name: Remember previous production for rollback
+        id: previous
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { appendFileSync } from 'node:fs';
+          const scope = process.env.VERCEL_ORG_ID.startsWith('team_') ? `?teamId=${encodeURIComponent(process.env.VERCEL_ORG_ID)}` : '';
+          const response = await fetch(`https://api.vercel.com/v9/projects/${process.env.VERCEL_PROJECT_ID}${scope}`, { headers: { Authorization: `Bearer ${process.env.VERCEL_TOKEN}` }, signal: AbortSignal.timeout(30000) });
+          assert(response.ok, 'Cannot read current production target');
+          const project = await response.json();
+          appendFileSync(process.env.GITHUB_OUTPUT, `deployment=${project.targets?.production?.id || ''}\n`);
+          NODE
+      - name: Deploy verified Git revision
+        id: deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          url=$(npx --yes vercel@64.0.2 deploy --prebuilt --prod --token="$VERCEL_TOKEN" --meta githubCommitSha="$GITHUB_SHA" --meta githubCommitRef=main --meta githubCommitRepo=portfolio --meta githubCommitOrg=TrieuNguyenPhu)
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+      - name: Verify live commit and principal routes
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          const origin = process.env.NEXT_PUBLIC_SITE_URL;
+          const health = await fetch(`${origin}/api/health`, { signal: AbortSignal.timeout(30000) });
+          assert(health.ok, 'Production health endpoint unavailable');
+          const result = await health.json();
+          assert.equal(result.status, 'ok');
+          assert.equal(result.commit, process.env.GITHUB_SHA, 'Production SHA must equal this GitHub run');
+          for (const route of ['/', '/blog', '/knowledge', '/interview', '/certifications', '/certifications/practice', '/cheatsheets', '/roadmaps', '/about', '/sitemap.xml']) {
+            const response = await fetch(`${origin}${route}`, { signal: AbortSignal.timeout(30000) });
+            assert.equal(response.status, 200, `Smoke check: ${route}`);
+          }
+          console.log(`Production is healthy at ${origin}; Git commit ${result.commit}`);
+          NODE
+      - name: Roll back a failed release
+        if: failure() && steps.deploy.outcome == 'success' && steps.previous.outputs.deployment != ''
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          PREVIOUS_DEPLOYMENT: ${{ steps.previous.outputs.deployment }}
+        run: npx --yes vercel@64.0.2 rollback "$PREVIOUS_DEPLOYMENT" --timeout=60s --token="$VERCEL_TOKEN"
+      - name: Deployment summary
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          printf '## Production\n\nSite: %s\n\nDeployment: %s\n\nCommit: `%s`\n' "$NEXT_PUBLIC_SITE_URL" "$DEPLOYMENT_URL" "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"

@@ -25,4 +25,3 @@ Bắt đầu từ metric latency và tỷ lệ lỗi để xác định phạm v
 Không ghi token hay dữ liệu cá nhân vào telemetry. Chọn thuộc tính có ý nghĩa và giới hạn cardinality, retention theo nhu cầu. Việc có đủ ba tín hiệu không tự chứng minh hệ thống quan sát được nếu không trả lời được câu hỏi vận hành.
 
 Bài tự luyện: tạo một request lab chậm ở database và mô tả mỗi tín hiệu cung cấp bằng chứng gì.
-

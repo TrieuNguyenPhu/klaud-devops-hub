@@ -38,4 +38,3 @@ Dùng môi trường lab riêng và chọn một đường tấn công cụ th�
 - [Linux Foundation: handbook](https://docs.linuxfoundation.org/tc-docs/certification/lf-handbook2)
 
 Đây là hướng dẫn học gốc, không phải đề thi thật. Kiểm tra lại điều kiện và môi trường thi trước khi đăng ký.
-

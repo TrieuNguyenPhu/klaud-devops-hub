@@ -31,4 +31,3 @@ Thay COMMIT_SHA bằng mã đã kiểm tra. Working tree cần sạch. Revert c�
 Merge commit cần xác định mainline phù hợp, vì vậy không áp dụng máy móc câu lệnh trên cho mọi commit. Hoàn tác mã cũng không tự hoàn tác dữ liệu đã ghi, migration hay tài nguyên ngoài Git. Kế hoạch rollback phải xem xét các tác động đó.
 
 Bài tự luyện: tạo một commit nhỏ trong repo lab, revert rồi xem log để xác nhận cả hai commit còn tồn tại.
-

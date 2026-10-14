@@ -25,4 +25,3 @@ Cần định nghĩa yêu cầu nào được tính, thành công là gì và c�
 Ví dụ lab: SLI là tỷ lệ request hợp lệ trả thành công; SLO là ít nhất 99,9% trong 30 ngày. Đây là ví dụ để học, không phải mục tiêu mặc định cho mọi sản phẩm.
 
 Bài tự luyện: viết một SLI cho API đặt hàng, gồm nguồn dữ liệu, tử số, mẫu số và các loại yêu cầu bị loại. Sau đó giải thích vì sao mục tiêu đó phù hợp nhu cầu người dùng.
-

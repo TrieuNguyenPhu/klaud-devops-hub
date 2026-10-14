@@ -38,4 +38,3 @@ Tạo một ứng dụng lab nhận sự kiện, xử lý và ghi kết quả. T
 - [CI an toàn tại hub](/blog/github-actions-ci-an-toan)
 
 Câu hỏi tại hub được biên soạn mới cho việc học; không sao chép đề thi hoặc hứa hẹn kết quả thi.
-

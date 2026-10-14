@@ -29,4 +29,3 @@ docker container inspect myapp
 Đóng gói mã và dependency vào image; đưa cấu hình runtime qua cơ chế phù hợp; lưu dữ liệu bền vững ở volume hoặc dịch vụ dữ liệu. Tránh dùng một container đã sửa tay như nguồn chân lý cho bản triển khai tiếp theo.
 
 Bài tự luyện: trong lab, ghi tệp vào container, xóa container thử nghiệm rồi tạo mới từ cùng image. So sánh với dữ liệu ở named volume. Kiểm tra đúng volume trước mọi lệnh xóa.
-

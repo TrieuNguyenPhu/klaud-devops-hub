@@ -39,4 +39,3 @@ Lấy một API nhỏ, đóng image rồi triển khai vào namespace lab. Thêm
 - [Kubernetes: Service](https://kubernetes.io/docs/concepts/services-networking/service/)
 
 Câu hỏi và lab ở đây là tài liệu tự học gốc. Không coi chúng là bản sao hoặc dự đoán đề thi; kiểm tra thông tin môi trường trên trang chính thức.
-

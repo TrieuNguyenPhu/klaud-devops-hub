@@ -73,4 +73,3 @@ Nếu đã sửa unit, nạp lại định nghĩa; nếu chỉ sửa cấu hình
 ## Bài lab ngắn
 
 Dựng dịch vụ lab lỗi đường dẫn, thu bằng chứng bằng ba lệnh trên và sửa đúng đường dẫn. Xác nhận bằng một request thực tế. Đọc tiếp [chẩn đoán hiệu năng Linux](/blog/linux-chan-doan-hieu-nang).
-

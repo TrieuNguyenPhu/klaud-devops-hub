@@ -30,4 +30,3 @@ ss -tn
 ```
 
 Các lệnh chỉ phản ánh trạng thái mạng tại thời điểm quan sát. Trong phỏng vấn, hãy phân biệt xác nhận truyền dữ liệu với xác nhận nghiệp vụ, rồi nêu một cách xử lý retry an toàn. [iproute2, dự án cung cấp ss](https://www.kernel.org/pub/linux/utils/net/iproute2/)
-

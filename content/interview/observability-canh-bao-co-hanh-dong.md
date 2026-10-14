@@ -25,4 +25,3 @@ Với CloudWatch, alarm đánh giá metric theo các khoảng và số datapoint
 Bài tự luyện: xây alarm lab cho tỷ lệ lỗi hoặc latency, ghi điều kiện kích hoạt, người nhận và runbook. Mô phỏng cả lỗi thực và thiếu dữ liệu để xác nhận hành vi.
 
 Tránh tắt cảnh báo chỉ vì ồn. Tìm nguyên nhân, chỉnh điều kiện theo mục tiêu dịch vụ và giữ metric để phân tích xu hướng.
-

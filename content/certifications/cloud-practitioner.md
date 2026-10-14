@@ -37,4 +37,3 @@ Tự thiết kế một cửa hàng trực tuyến nhỏ trên giấy. Với m�
 - [AWS Skill Builder](https://skillbuilder.aws/)
 
 Nội dung và câu hỏi tại hub do tác giả biên soạn để học, không phải đề thi thật hay exam dumps. Kiểm tra exam guide hiện hành trước khi đăng ký.
-

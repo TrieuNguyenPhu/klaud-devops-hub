@@ -31,4 +31,3 @@ Tên không phân giải: kiểm tra resolver, record và cache. Có địa ch�
 TTL hướng dẫn thời gian giữ bản ghi trong cache; thay đổi DNS không đồng nghĩa mọi client thấy ngay giá trị mới. [DNS theo RFC 1035](https://www.rfc-editor.org/rfc/rfc1035.html), [curl: tùy chọn dòng lệnh](https://curl.se/docs/manpage.html)
 
 Bài tự luyện: ghi rõ bước nào thất bại và bằng chứng của bước đó trong một báo cáo sự cố ngắn.
-

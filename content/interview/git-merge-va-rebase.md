@@ -32,4 +32,3 @@ git merge origin/main
 ```
 
 Khi xung đột, sửa nội dung theo ý nghĩa chương trình rồi kiểm tra hành vi; xóa ký hiệu xung đột chưa đủ. Bài tự luyện: dựng hai nhánh trong repo lab và vẽ lịch sử sau từng cách.
-

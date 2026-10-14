@@ -53,4 +53,3 @@ author: "DevOps Knowledge Hub"
 ## Dự án kết thúc
 
 Một API nhỏ đi từ commit đến triển khai, có cách quan sát và rollback được mô tả. Chỉ thêm công cụ khi dự án xuất hiện nhu cầu cụ thể. Chứng chỉ có thể giúp hệ thống hóa kiến thức; bằng chứng thực hành vẫn là repo và kết quả lab.
-

@@ -30,4 +30,3 @@ Nếu liveness quá gắt khi khởi động, tiến trình có thể bị giế
 Tránh biến một lỗi dependency tạm thời thành vòng restart toàn hệ thống. Endpoint readiness có thể phản ánh khả năng phục vụ, trong khi liveness nên phát hiện trạng thái không thể tự phục hồi.
 
 Bài tự luyện: làm ứng dụng lab khởi động chậm, quan sát events và chứng minh startup probe cho nó đủ thời gian.
-

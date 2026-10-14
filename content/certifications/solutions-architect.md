@@ -36,4 +36,3 @@ Vẽ kiến trúc API cho một workload nhỏ. Lần lượt thêm yêu cầu m
 - [Bài IAM tại hub](/blog/aws-iam-quyen-toi-thieu)
 
 Bộ tự luyện là nội dung gốc để củng cố kiến thức, không đại diện đề thi thật. Đối chiếu phạm vi mới nhất ở exam guide.
-

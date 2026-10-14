@@ -31,4 +31,3 @@ docker image inspect myapp:local
 ```
 
 Tên build phải khớp stage thực tế. Bài tự luyện: so sánh nội dung và kích thước image trước, sau; chạy ứng dụng để xác nhận đã copy đủ artifact.
-

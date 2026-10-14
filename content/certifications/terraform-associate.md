@@ -39,4 +39,3 @@ Tự luyện bằng tình huống: cùng một state có hai người apply, ho�
 - [State tại hub](/blog/terraform-state-va-lock)
 
 Các câu hỏi tại hub là nội dung tự biên soạn, không phải exam dumps. Đối chiếu mục tiêu phiên bản 004 thay vì chỉ học theo hướng dẫn 003.
-

@@ -31,4 +31,3 @@ aws sts get-caller-identity
 Chạy lệnh trong đúng môi trường thực thi. Nếu ứng dụng vẫn dùng credentials cũ từ biến môi trường, nó có thể không dùng role như dự kiến.
 
 Bài tự luyện: viết policy chỉ đọc một prefix lab và kiểm tra cả yêu cầu được phép lẫn yêu cầu ngoài phạm vi.
-

@@ -25,4 +25,3 @@ Viết theo bằng chứng thay vì đổ lỗi cá nhân. Một thao tác sai c
 Ví dụ: thay vì yêu cầu cẩn thận hơn, thêm kiểm tra migration trên bản sao dữ liệu và định nghĩa điều kiện rollback. Không cần thêm quy trình nặng cho mọi sự cố nhỏ; ưu tiên tác động và khả năng tái diễn.
 
 Bài tự luyện: viết postmortem một trang cho một lỗi lab. Với mỗi hành động, ghi cách chứng minh hành động đã làm giảm nguy cơ.
-

@@ -31,4 +31,3 @@ Service không tự sửa labels sai. port là cổng Service cung cấp; target
 Pod ở trạng thái Running vẫn có thể chưa Ready. Vì vậy đừng chỉ dựa vào trạng thái tiến trình. Trong phỏng vấn, đưa ra giả thuyết kèm lệnh xác minh thay vì chỉnh nhiều cấu hình cùng lúc.
 
 Bài tự luyện: cố ý đổi label trong lab và quan sát EndpointSlice trước, sau khi sửa.
-

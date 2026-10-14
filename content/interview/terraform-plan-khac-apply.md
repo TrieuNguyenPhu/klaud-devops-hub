@@ -32,4 +32,3 @@ Trong một thư mục lab đã init, đọc mọi thay đổi destroy hoặc re
 Một plan thành công cũng không bảo đảm apply thành công: quyền, quota hoặc trạng thái bên ngoài có thể thay đổi. Khi triển khai, xác minh tài nguyên và hành vi sau apply.
 
 Bài tự luyện: thay một giá trị cấu hình nhỏ và giải thích vì sao plan chọn update hay replace.
-

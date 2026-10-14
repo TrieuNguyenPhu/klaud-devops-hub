@@ -29,4 +29,3 @@ systemctl cat myapp.service
 Nếu nhật ký báo thiếu tệp, kiểm tra đường dẫn thay vì sửa timeout. Nếu báo permission denied, đối chiếu User, Group và quyền thư mục. Nếu tiến trình thoát ngay, chạy bước kiểm tra cấu hình do ứng dụng cung cấp. Chỉ dùng daemon-reload khi sửa định nghĩa unit; bước này không tự khởi động lại dịch vụ.
 
 Sau khi sửa, khởi động lại có kiểm soát trong lab và xác nhận trạng thái cùng một yêu cầu thực tế. [journalctl](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html)
-

@@ -38,4 +38,3 @@ Dùng cluster lab riêng. Tạo một Deployment, expose qua Service, gắn volu
 - [Probes tại hub](/blog/kubernetes-probes-dung-muc-dich)
 
 Tham khảo handbook, curriculum và FAQ hiện hành để biết môi trường cùng quy tắc thi. Các bài lab của hub được biên soạn mới, không phải nội dung lấy từ bài thi.
-

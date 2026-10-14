@@ -76,4 +76,3 @@ Không áp dụng máy móc cho merge commit; cần chọn mainline đúng. [git
 ## Bài lab ngắn
 
 Tạo repo thử nghiệm, sửa một tệp, stage rồi bỏ stage và xác nhận nội dung vẫn còn. Cuối cùng commit rồi revert. Đọc tiếp [nhánh nhỏ và lịch sử rõ](/blog/git-nhanh-nho-lich-su-ro).
-

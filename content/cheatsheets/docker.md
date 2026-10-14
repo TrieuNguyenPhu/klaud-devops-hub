@@ -76,4 +76,3 @@ Named volume cần kế hoạch backup và dọn riêng. [Docker: volumes](https
 ## Bài lab ngắn
 
 Build, chạy, kiểm tra HTTP rồi đọc logs của cùng một image. Đọc tiếp [multi-stage thực hành](/blog/docker-multi-stage-thuc-hanh) và [Compose healthcheck](/blog/docker-compose-healthcheck).
-

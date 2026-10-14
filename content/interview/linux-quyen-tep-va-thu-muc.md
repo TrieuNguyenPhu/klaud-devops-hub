@@ -30,4 +30,3 @@ chmod u+x /srv/app/start.sh
 ```
 
 Bài tự luyện: tạo một thư mục trong môi trường lab, thay đổi riêng quyền x rồi so sánh khả năng liệt kê và truy cập tệp đã biết tên.
-
