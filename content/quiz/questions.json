@@ -1,0 +1,485 @@
+[
+  {
+    "id": "clf-responsibility-ec2",
+    "certification": "cloud-practitioner",
+    "question": "Một nhóm chạy ứng dụng trên Amazon EC2. Theo mô hình trách nhiệm chia sẻ, hai việc nào thuộc trách nhiệm khách hàng? Chọn 2 đáp án.",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Cập nhật hệ điều hành guest của EC2.",
+        "explanation": "Đúng. Với EC2, khách hàng quản lý hệ điều hành guest và các bản cập nhật cần thiết."
+      },
+      {
+        "id": "b",
+        "text": "Bảo vệ vật lý trung tâm dữ liệu AWS.",
+        "explanation": "Sai. Bảo vệ cơ sở vật chất AWS thuộc phía AWS."
+      },
+      {
+        "id": "c",
+        "text": "Cấu hình security group phù hợp cho ứng dụng.",
+        "explanation": "Đúng. Khách hàng quyết định quy tắc truy cập mạng của workload mình."
+      },
+      {
+        "id": "d",
+        "text": "Thay phần cứng máy chủ vật lý khi hỏng.",
+        "explanation": "Sai. AWS vận hành phần cứng nền cho dịch vụ EC2."
+      }
+    ],
+    "correct": [
+      "a",
+      "c"
+    ],
+    "explanation": "EC2 để khách hàng quản lý nhiều phần của workload, bao gồm guest OS và quy tắc truy cập. AWS chịu trách nhiệm hạ tầng vật lý. Trách nhiệm cụ thể thay đổi theo loại dịch vụ.",
+    "source": "https://aws.amazon.com/compliance/shared-responsibility-model/"
+  },
+  {
+    "id": "clf-region-az",
+    "certification": "cloud-practitioner",
+    "question": "Phát biểu nào mô tả đúng Region và Availability Zone (AZ) trong AWS?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Một Region chứa nhiều AZ tách biệt về vị trí.",
+        "explanation": "Đúng. AZ là các vị trí biệt lập trong một Region và được kết nối bằng mạng có độ trễ thấp."
+      },
+      {
+        "id": "b",
+        "text": "Một AZ luôn trải qua nhiều Region.",
+        "explanation": "Sai. Một AZ thuộc một Region, không bao trùm nhiều Region."
+      },
+      {
+        "id": "c",
+        "text": "Mọi tài nguyên tự động sao chép sang các Region khác.",
+        "explanation": "Sai. AWS không mặc định sao chép mọi loại tài nguyên qua Region; cần thiết kế cấu hình phù hợp."
+      },
+      {
+        "id": "d",
+        "text": "Chạy hai instance trong cùng một AZ loại bỏ rủi ro AZ bị lỗi.",
+        "explanation": "Sai. Cả hai vẫn cùng chịu tác động nếu AZ đó gặp sự cố."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "Region là khu vực địa lý riêng; trong Region có nhiều AZ. Muốn chịu được lỗi một AZ, cần thiết kế workload trên nhiều AZ thay vì chỉ tăng số instance ở cùng nơi.",
+    "source": "https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-regions-availability-zones.html"
+  },
+  {
+    "id": "saa-rds-standby",
+    "certification": "solutions-architect",
+    "question": "Một RDS Multi-AZ DB instance deployment có một primary và một standby. Nhóm muốn gửi query đọc trực tiếp đến standby để tăng năng lực đọc. Đánh giá nào đúng?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Standby này hỗ trợ failover và không phục vụ read traffic.",
+        "explanation": "Đúng. Trong mô hình Multi-AZ DB instance với một standby, standby dùng cho tính sẵn sàng và failover."
+      },
+      {
+        "id": "b",
+        "text": "Chỉ cần đổi connection string sang standby là đọc được.",
+        "explanation": "Sai. Standby của mô hình được nêu không là endpoint đọc cho ứng dụng."
+      },
+      {
+        "id": "c",
+        "text": "Mọi mô hình RDS Multi-AZ đều có cùng hành vi reader.",
+        "explanation": "Sai. Multi-AZ DB cluster và Multi-AZ DB instance có đặc điểm khác nhau."
+      },
+      {
+        "id": "d",
+        "text": "Multi-AZ có nghĩa primary và standby nằm cùng AZ.",
+        "explanation": "Sai. Thiết kế Multi-AZ dùng các AZ khác nhau để tăng khả năng chịu lỗi."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "Cần nhận diện chính xác loại deployment. Multi-AZ DB instance có một standby để failover, không dùng standby đó cho read scaling. Những mô hình khác phải được đánh giá theo tài liệu riêng.",
+    "source": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html"
+  },
+  {
+    "id": "saa-autoscaling-az",
+    "certification": "solutions-architect",
+    "question": "Một API stateless chạy trên EC2 cần tăng giảm năng lực theo tải và giảm ảnh hưởng khi một AZ lỗi. Hai lựa chọn nào phù hợp? Chọn 2 đáp án.",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Cấu hình Auto Scaling group sử dụng subnet ở nhiều AZ.",
+        "explanation": "Đúng. Group đa AZ giúp phân phối và thay thế năng lực ngoài AZ bị ảnh hưởng."
+      },
+      {
+        "id": "b",
+        "text": "Dùng load balancer để phân phối request đến các instance khỏe.",
+        "explanation": "Đúng. Load balancer phân phối traffic đến các instance phục vụ API."
+      },
+      {
+        "id": "c",
+        "text": "Dồn mọi instance vào một subnet duy nhất.",
+        "explanation": "Sai. Subnet thuộc một AZ, nên lựa chọn này vẫn tập trung rủi ro vào một AZ."
+      },
+      {
+        "id": "d",
+        "text": "Chỉ tăng kích thước instance duy nhất và bỏ autoscaling.",
+        "explanation": "Sai. Một instance lớn vẫn là một điểm tập trung lỗi và không đáp ứng mục tiêu tăng giảm số lượng theo tải."
+      }
+    ],
+    "correct": [
+      "a",
+      "b"
+    ],
+    "explanation": "Kết hợp Auto Scaling đa AZ và load balancer phù hợp workload stateless. Vẫn cần cấu hình capacity, health checks và dependencies để ứng dụng thực sự phục hồi được.",
+    "source": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/auto-scaling-benefits.html"
+  },
+  {
+    "id": "dva-sqs-idempotent",
+    "certification": "developer-associate",
+    "question": "Consumer đọc SQS Standard và đôi khi nhận lại một message đã xử lý. Cách nào xử lý đúng giả định của dịch vụ?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Thiết kế xử lý idempotent để một message lặp không ghi kết quả nghiệp vụ hai lần.",
+        "explanation": "Đúng. SQS Standard có at-least-once delivery nên consumer phải chịu được message lặp."
+      },
+      {
+        "id": "b",
+        "text": "Xem mọi message lặp là bằng chứng SQS bị hỏng.",
+        "explanation": "Sai. Việc giao lại có thể xảy ra theo mô hình dịch vụ."
+      },
+      {
+        "id": "c",
+        "text": "Tạo bản ghi mới vô điều kiện cho mỗi lần nhận.",
+        "explanation": "Sai. Cùng thao tác có thể tạo dữ liệu trùng khi message được giao lại."
+      },
+      {
+        "id": "d",
+        "text": "Giả định message chỉ có thể được nhận đúng một lần.",
+        "explanation": "Sai. Đó không phải đảm bảo của Standard queue."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "Dùng định danh nghiệp vụ hoặc khóa xử lý phù hợp để nhận diện thao tác đã hoàn thành. Đây là tình huống tự biên soạn nhằm luyện thiết kế consumer, không phải câu hỏi đề thi thật.",
+    "source": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues-at-least-once-delivery.html"
+  },
+  {
+    "id": "dva-lambda-secret",
+    "certification": "developer-associate",
+    "question": "Lambda cần dùng một mật khẩu database và nhóm muốn quản lý bí mật chuyên biệt. AWS khuyến nghị lựa chọn nào thay cho lưu mật khẩu trực tiếp trong biến môi trường?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Lưu trong AWS Secrets Manager và cấp quyền truy cập phù hợp.",
+        "explanation": "Đúng. AWS khuyến nghị Secrets Manager cho thông tin nhạy cảm như credentials database."
+      },
+      {
+        "id": "b",
+        "text": "Đưa mật khẩu vào tên function.",
+        "explanation": "Sai. Tên tài nguyên không phải nơi bảo vệ bí mật và có thể lộ qua metadata."
+      },
+      {
+        "id": "c",
+        "text": "Ghi mật khẩu ra logs lúc khởi động.",
+        "explanation": "Sai. Logging bí mật mở thêm đường truy cập dữ liệu nhạy cảm."
+      },
+      {
+        "id": "d",
+        "text": "Commit mật khẩu trong mã để pipeline dễ đọc.",
+        "explanation": "Sai. Lịch sử Git và quyền repository sẽ làm bí mật lan rộng, khó thu hồi."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "Chọn dịch vụ quản lý bí mật, giới hạn quyền của execution role và tránh ghi giá trị vào telemetry. Cấu hình runtime thông thường và bí mật cần được xử lý theo nhu cầu riêng.",
+    "source": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html"
+  },
+  {
+    "id": "soa-cloudtrail-audit",
+    "certification": "cloudops-engineer",
+    "question": "Một nhóm cần tìm ai đã gọi API thay đổi cấu hình tài nguyên AWS, vào thời điểm nào. Nguồn thông tin nào phù hợp nhất?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "AWS CloudTrail ghi hoạt động và sự kiện API phù hợp.",
+        "explanation": "Đúng. CloudTrail cung cấp lịch sử hoạt động tài khoản và sự kiện để kiểm tra thay đổi."
+      },
+      {
+        "id": "b",
+        "text": "Chỉ metric CPU của EC2.",
+        "explanation": "Sai. CPU cho biết tải tính toán, không xác định danh tính đã gọi API cấu hình."
+      },
+      {
+        "id": "c",
+        "text": "Chỉ thông tin kích thước Docker image.",
+        "explanation": "Sai. Metadata image không ghi hoạt động API của tài khoản AWS."
+      },
+      {
+        "id": "d",
+        "text": "Chỉ đầu ra lệnh ping đến ứng dụng.",
+        "explanation": "Sai. Ping kiểm tra phản hồi mạng, không cho biết chủ thể thay đổi cấu hình."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "Bắt đầu từ CloudTrail và loại sự kiện phù hợp. Kiểm tra phạm vi ghi, tài nguyên cùng khoảng thời gian, vì không nên mặc định mọi sự kiện dữ liệu đã được bật ghi.",
+    "source": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html"
+  },
+  {
+    "id": "soa-restore-proof",
+    "certification": "cloudops-engineer",
+    "question": "Backup job báo thành công. Việc nào tạo bằng chứng mạnh hơn rằng workload có thể khôi phục khi cần?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Thực hiện restore testing và xác minh tài nguyên, dữ liệu sau restore.",
+        "explanation": "Đúng. Kiểm thử phục hồi cho thấy bản backup có thể được dùng và kiểm tra kết quả thực tế."
+      },
+      {
+        "id": "b",
+        "text": "Chỉ đếm số file tài liệu backup.",
+        "explanation": "Sai. Số tài liệu không chứng minh dữ liệu phục hồi được."
+      },
+      {
+        "id": "c",
+        "text": "Tắt mọi cảnh báo restore vì backup đã thành công.",
+        "explanation": "Sai. Thành công khi tạo backup không bảo đảm quy trình restore luôn hoạt động."
+      },
+      {
+        "id": "d",
+        "text": "Coi một ảnh chụp màn hình backup job là đủ cho mọi yêu cầu phục hồi.",
+        "explanation": "Sai. Ảnh chụp không kiểm tra quyền, cấu hình và hành vi sau restore."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "AWS Backup hỗ trợ restore testing cho các loại tài nguyên được hỗ trợ. Kiểm tra thêm khả năng sử dụng dữ liệu và thời gian phục hồi theo yêu cầu của workload; dọn tài nguyên test có kiểm soát.",
+    "source": "https://docs.aws.amazon.com/aws-backup/latest/devguide/restore-testing.html"
+  },
+  {
+    "id": "cka-scheduler-requests",
+    "certification": "cka",
+    "question": "Pod Pending có event báo thiếu CPU. Tất cả node không còn đủ allocatable CPU cho requests của Pod. Bước nào hợp lý nhất?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Đối chiếu requests với capacity, rồi điều chỉnh theo nhu cầu đo được hoặc bổ sung năng lực.",
+        "explanation": "Đúng. Scheduler xét resource requests so với tài nguyên có thể cấp của node."
+      },
+      {
+        "id": "b",
+        "text": "Chỉ đổi tên Pod để scheduler cấp thêm CPU.",
+        "explanation": "Sai. Tên không tạo thêm năng lực tài nguyên."
+      },
+      {
+        "id": "c",
+        "text": "Chỉ sửa cổng Service.",
+        "explanation": "Sai. Cổng Service không giải quyết điều kiện scheduling thiếu CPU."
+      },
+      {
+        "id": "d",
+        "text": "Giả định CPU sử dụng tức thời thấp nên requests luôn được bỏ qua.",
+        "explanation": "Sai. Scheduler dùng requests để xét khả năng xếp Pod, không chỉ nhìn mức sử dụng hiện tại."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "Đọc events và cấu hình requests trước. Không giảm requests tùy tiện: chọn giá trị dựa trên nhu cầu workload, hoặc thêm capacity nếu yêu cầu là đúng.",
+    "source": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+  },
+  {
+    "id": "cka-service-endpoints",
+    "certification": "cka",
+    "question": "Service có selector app=api, nhưng các Pod cần phục vụ đều có label app=backend. Trong lab chỉ cần đưa đúng những Pod này vào Service. Nên sửa gì trước?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Làm cho selector Service và labels của Pod khớp theo thiết kế.",
+        "explanation": "Đúng. Service dựa trên selector để chọn các Pod đích."
+      },
+      {
+        "id": "b",
+        "text": "Tăng replica nhưng giữ nguyên label không khớp.",
+        "explanation": "Sai. Thêm Pod với label sai vẫn không được selector chọn."
+      },
+      {
+        "id": "c",
+        "text": "Chỉ thay ClusterIP để label được tự sửa.",
+        "explanation": "Sai. Địa chỉ Service không thay đổi quy tắc chọn Pod."
+      },
+      {
+        "id": "d",
+        "text": "Coi Pod Running là đủ để Service chọn mọi Pod trong namespace.",
+        "explanation": "Sai. Service không mặc định chọn tất cả Pod Running; selector vẫn quyết định đích."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "Sau khi sửa đúng selector hoặc labels, kiểm tra EndpointSlice và cổng đích rồi thử request. Cần tránh vô tình chọn thêm Pod không thuộc ứng dụng.",
+    "source": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/"
+  },
+  {
+    "id": "ckad-readiness-failure",
+    "certification": "ckad",
+    "question": "Một container đã khởi động, readiness probe thất bại nhưng liveness vẫn thành công. Kết quả nào đúng?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Container tiếp tục chạy nhưng không được coi là sẵn sàng nhận traffic Service thông thường.",
+        "explanation": "Đúng. Readiness thất bại đánh dấu không Ready và loại khỏi các endpoint sẵn sàng phục vụ thông thường."
+      },
+      {
+        "id": "b",
+        "text": "Readiness thất bại luôn restart container ngay.",
+        "explanation": "Sai. Restart theo probe thuộc liveness hoặc startup sau khi đủ điều kiện thất bại."
+      },
+      {
+        "id": "c",
+        "text": "Readiness tự động sửa cấu hình ứng dụng.",
+        "explanation": "Sai. Probe kiểm tra và ảnh hưởng trạng thái, không sửa logic ứng dụng."
+      },
+      {
+        "id": "d",
+        "text": "Readiness chỉ có tác dụng trước khi container chạy.",
+        "explanation": "Sai. Readiness được kiểm tra trong vòng đời container để phản ánh khả năng phục vụ."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "Readiness dành cho việc quyết định nhận traffic. Liveness dành cho việc xác định cần restart. Bài này giả định Service và EndpointSlice dùng hành vi readiness thông thường, không có publishNotReadyAddresses.",
+    "source": "https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/"
+  },
+  {
+    "id": "ckad-configmap-env",
+    "certification": "ckad",
+    "question": "Một Pod lấy biến môi trường từ ConfigMap. ConfigMap được cập nhật, nhưng tiến trình hiện tại vẫn dùng giá trị cũ. Nhận định nào đúng?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Biến môi trường từ ConfigMap không tự cập nhật; cần tạo lại Pod để nhận giá trị mới.",
+        "explanation": "Đúng. Môi trường được thiết lập khi container khởi động, thay ConfigMap không đổi env của tiến trình đang chạy."
+      },
+      {
+        "id": "b",
+        "text": "Mọi biến môi trường được thay trực tiếp trong tiến trình mỗi giây.",
+        "explanation": "Sai. Kubernetes không cập nhật env trong tiến trình đang chạy theo cách này."
+      },
+      {
+        "id": "c",
+        "text": "ConfigMap chỉ dùng để đặt label cho Pod.",
+        "explanation": "Sai. ConfigMap cung cấp dữ liệu cấu hình, gồm nguồn cho biến môi trường hoặc volume."
+      },
+      {
+        "id": "d",
+        "text": "Chỉ thay cổng Service là tiến trình nhận env mới.",
+        "explanation": "Sai. Cổng Service không làm khởi tạo lại môi trường container."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "Lập kế hoạch rollout tạo Pod mới sau khi đổi ConfigMap dùng cho env. Cấu hình mount qua volume có hành vi cập nhật khác, và ứng dụng vẫn cần đọc lại nếu muốn dùng giá trị mới.",
+    "source": "https://kubernetes.io/docs/concepts/configuration/configmap/"
+  },
+  {
+    "id": "cks-networkpolicy-plugin",
+    "certification": "cks",
+    "question": "Bạn tạo NetworkPolicy deny ingress trong lab nhưng traffic vẫn đi qua. Cluster dùng giải pháp mạng không hỗ trợ thực thi NetworkPolicy. Kết luận nào đúng?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Tạo tài nguyên NetworkPolicy không đủ; cần network plugin hỗ trợ thực thi.",
+        "explanation": "Đúng. API chấp nhận tài nguyên không có nghĩa dataplane của cluster thực thi chính sách."
+      },
+      {
+        "id": "b",
+        "text": "Chỉ đổi tên NetworkPolicy sẽ thêm khả năng thực thi cho plugin.",
+        "explanation": "Sai. Tên tài nguyên không thay đổi khả năng của giải pháp mạng."
+      },
+      {
+        "id": "c",
+        "text": "Mọi cluster luôn thực thi NetworkPolicy dù dùng plugin nào.",
+        "explanation": "Sai. Tài liệu Kubernetes nêu phải có giải pháp mạng hỗ trợ."
+      },
+      {
+        "id": "d",
+        "text": "NetworkPolicy là công cụ thay quyền truy cập API của ServiceAccount.",
+        "explanation": "Sai. NetworkPolicy kiểm soát kết nối mạng của Pod; quyền gọi API được kiểm soát bằng cơ chế như RBAC."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "Xác minh giải pháp mạng và phạm vi selector, rồi thử kết nối từ nguồn phù hợp. Giữ việc kiểm tra trong lab; không chỉ nhìn tài nguyên đã tạo thành công.",
+    "source": "https://kubernetes.io/docs/concepts/services-networking/network-policies/"
+  },
+  {
+    "id": "tf-validate-context",
+    "certification": "terraform-associate",
+    "question": "Một cấu hình Terraform chạy validate thành công. Điều nào vẫn cần thực hiện để xem thay đổi dự kiến trong bối cảnh workspace và tài nguyên?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "Chạy và đọc terraform plan trong môi trường mục tiêu.",
+        "explanation": "Đúng. Plan đánh giá cấu hình trong bối cảnh giá trị đầu vào, state và môi trường để tạo thay đổi dự kiến."
+      },
+      {
+        "id": "b",
+        "text": "Coi validate đã tạo hoặc sửa mọi tài nguyên.",
+        "explanation": "Sai. Validate không thực thi thay đổi hạ tầng."
+      },
+      {
+        "id": "c",
+        "text": "Chỉ đổi tên thư mục và bỏ qua plan.",
+        "explanation": "Sai. Đổi tên thư mục không cung cấp bằng chứng về thay đổi dự kiến."
+      },
+      {
+        "id": "d",
+        "text": "Coi validate bảo đảm mọi quyền và quota cloud đều đủ.",
+        "explanation": "Sai. Validate kiểm tra cấu hình, không chứng minh mọi điều kiện bên ngoài khi apply."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "Validate hữu ích để kiểm tra cú pháp và tính nhất quán nội bộ; plan là bước xem xét thay đổi trong ngữ cảnh cụ thể. Không đồng nhất một kiểm tra cấu hình với triển khai thành công.",
+    "source": "https://developer.hashicorp.com/terraform/cli/commands/validate"
+  },
+  {
+    "id": "tf-data-source",
+    "certification": "terraform-associate",
+    "question": "Module cần tra thông tin một tài nguyên đã có để tham chiếu, nhưng không có mục tiêu quản lý vòng đời tài nguyên đó. Loại block nào thường phù hợp?",
+    "choices": [
+      {
+        "id": "a",
+        "text": "data block với data source do provider hỗ trợ.",
+        "explanation": "Đúng. Data source đọc thông tin từ nguồn bên ngoài để dùng trong cấu hình."
+      },
+      {
+        "id": "b",
+        "text": "resource block chỉ để tra cứu và mặc định không quản lý vòng đời.",
+        "explanation": "Sai. Resource block khai báo tài nguyên được Terraform quản lý; nó không chỉ là truy vấn."
+      },
+      {
+        "id": "c",
+        "text": "output block tự tìm tài nguyên cloud dù không có nguồn dữ liệu.",
+        "explanation": "Sai. Output xuất giá trị từ biểu thức, không tự cung cấp API tra cứu."
+      },
+      {
+        "id": "d",
+        "text": "locals block tự tạo kết nối provider để tìm tài nguyên.",
+        "explanation": "Sai. Local values đặt tên cho biểu thức, không thay data source cho việc truy vấn."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanation": "Chọn data source phù hợp và điều kiện tìm kiếm rõ ràng. Nếu muốn Terraform quản lý tài nguyên có sẵn, đó là mục tiêu khác và cần khai báo cùng workflow import phù hợp.",
+    "source": "https://developer.hashicorp.com/terraform/language/data-sources"
+  }
+]
+

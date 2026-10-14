@@ -1,0 +1,20 @@
+import Link from "next/link";
+import { getCollection } from "@/lib/content";
+import { matchesSearch, queryValues } from "@/lib/search";
+import { PageHeading } from "@/components/shared/page-heading";
+import { ArticleCard } from "@/components/blog/article-card";
+import { Button } from "@/components/ui/button";
+import { pageMetadata } from "@/lib/seo";
+export const metadata = pageMetadata("Bài viết", "Bài viết thực hành DevOps, AWS, Linux và cloud native. Tìm kiếm theo nội dung, lọc chủ đề và thẻ.", "/blog");
+type Params = Record<string, string | string[] | undefined>;
+export default async function Blog({ searchParams }: { searchParams: Promise<Params> }) {
+  const params = queryValues(await searchParams);
+  const posts = getCollection("blog");
+  const categories = [...new Set(posts.map(post => post.category))].sort();
+  const tags = [...new Set(posts.flatMap(post => post.tags))].sort();
+  const filtered = posts.filter(post => (!params.category || post.category === params.category) && (!params.tag || post.tags.includes(params.tag)) && (params.featured !== "true" || post.featured) && matchesSearch(`${post.title} ${post.description} ${post.body}`, params.q || "")).sort((a, b) => params.sort === "oldest" ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date));
+  const pages = Math.ceil(filtered.length / 6);
+  const page = Math.max(1, Math.min(pages || 1, Number.parseInt(params.page || "1", 10) || 1));
+  const href = (changes: Record<string, string>) => { const query = new URLSearchParams(); Object.entries({ ...params, ...changes }).forEach(([key, value]) => { if (value) query.set(key, value); }); return `/blog?${query}`; };
+  return <div className="container page-main"><PageHeading eyebrow="THƯ VIỆN BÀI VIẾT" title="Hiểu sâu. Làm tốt hơn." description="Những ghi chép kỹ thuật từ nền tảng đến thực hành. Đọc, thử nghiệm và tìm cách áp dụng vào hệ thống của bạn." /><form className="filter-bar" action="/blog"><label className="filter-field">Tìm kiếm<input name="q" defaultValue={params.q} placeholder="Tìm trong tiêu đề và nội dung…" /></label><label className="filter-field">Chủ đề<select name="category" defaultValue={params.category || ""}><option value="">Tất cả chủ đề</option>{categories.map(category => <option key={category}>{category}</option>)}</select></label><label className="filter-field">Thẻ<select name="tag" defaultValue={params.tag || ""}><option value="">Tất cả thẻ</option>{tags.map(tag => <option key={tag}>{tag}</option>)}</select></label><label className="filter-field">Sắp xếp<select name="sort" defaultValue={params.sort || "newest"}><option value="newest">Mới nhất</option><option value="oldest">Cũ nhất</option></select></label><div className="flex gap-3 items-center"><Button type="submit" size="sm">Áp dụng</Button><Button asChild variant="ghost" size="sm"><Link href="/blog">Xóa bộ lọc</Link></Button><label className="flex gap-2 items-center text-xs text-muted-foreground"><input type="checkbox" name="featured" value="true" defaultChecked={params.featured === "true"} />Nổi bật</label></div></form><div className="category-tabs"><Link href={href({ category: "", page: "1" })} aria-current={!params.category ? "page" : undefined}>Tất cả</Link>{categories.map(category => <Link key={category} href={href({ category, page: "1" })} aria-current={params.category === category ? "page" : undefined}>{category}</Link>)}</div><p className="result-count">{filtered.length} bài viết · Trang {page}/{pages || 1}</p>{filtered.length ? <div className="articles-grid">{filtered.slice((page - 1) * 6, page * 6).map(article => <ArticleCard key={article.slug} article={article} />)}</div> : <div className="empty-state"><h2>Chưa tìm thấy bài viết</h2><p>Thử từ khóa khác hoặc xóa bộ lọc để khám phá thư viện.</p><Button asChild variant="outline"><Link href="/blog">Xóa bộ lọc</Link></Button></div>}{pages > 1 && <nav className="pagination" aria-label="Phân trang">{Array.from({ length: pages }, (_, i) => <Link key={i} href={href({ page: String(i + 1) })} aria-current={page === i + 1 ? "page" : undefined}>{i + 1}</Link>)}</nav>}</div>;
+}

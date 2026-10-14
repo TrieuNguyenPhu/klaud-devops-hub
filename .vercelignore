@@ -1,0 +1,10 @@
+**/gôm nhặt trên mạng/**
+.git
+.qa
+node_modules
+.next
+.env*
+!.env.example
+tests
+docs
+*.tsbuildinfo

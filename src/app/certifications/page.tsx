@@ -1,0 +1,10 @@
+import Link from "next/link";
+import { GraduationCap, ArrowRight } from "lucide-react";
+import { getCollection } from "@/lib/content";
+import { getQuestions } from "@/lib/questions";
+import { PageHeading } from "@/components/shared/page-heading";
+import { TechnologyIcon } from "@/components/shared/technology-icon";
+import { Button } from "@/components/ui/button";
+import { pageMetadata } from "@/lib/seo";
+export const metadata = pageMetadata("Luyện chứng chỉ", "Tổng quan AWS, Kubernetes và Terraform certification, tài liệu chính thức và bài luyện tập tự biên soạn.", "/certifications");
+export default function Certifications() { const questions = getQuestions(); return <div className="container page-main"><PageHeading eyebrow="CHỨNG CHỈ & THỰC HÀNH" title="Học chắc. Kiểm chứng kiến thức." description="Tài liệu có định hướng và câu hỏi luyện tập tự biên soạn. Xây nền tảng hiểu biết trước khi chinh phục chứng chỉ." /><div className="quiz-intro"><div className="flex gap-3 items-center mb-3"><GraduationCap size={23} className="text-primary" /><h2 className="text-lg font-semibold">Bài luyện tập tổng hợp</h2></div><p>15 câu trên 8 nhóm chứng chỉ. Có câu chọn một và nhiều đáp án, giải thích từng lựa chọn và lưu tiến độ.</p><Button asChild><Link href="/certifications/practice">Luyện tập ngay<ArrowRight size={16} /></Link></Button></div><div className="library-grid">{getCollection("certifications").map(item => <Link key={item.slug} href={item.href} className="library-card"><div className="card-top"><TechnologyIcon name={item.category} size={28} /><span>{questions.filter(q => q.certification === item.slug).length} câu luyện tập</span></div><h2>{item.title}</h2><p>{item.description}</p><div className="topic-tags">{item.tags.map(tag => <span key={tag}>{tag}</span>)}</div><span className="text-link">Tổng quan & luyện tập<ArrowRight size={14} /></span></Link>)}</div><p className="notice">Nội dung luyện tập độc lập, không liên kết hay được chứng thực bởi các đơn vị cấp chứng chỉ. Đối chiếu exam guide chính thức trước khi đăng ký thi.</p></div>; }

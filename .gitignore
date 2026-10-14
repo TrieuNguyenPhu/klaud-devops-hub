@@ -1,8 +1,14 @@
-node_modules
-.next
-.vercel
-*.log
+# Personal reference materials - NEVER COMMIT
+**/gôm nhặt trên mạng/
+node_modules/
+.next/
+out/
+dist/
+coverage/
+.env*
+!.env.example
 *.tsbuildinfo
-.DS_Store
-
-.vercel
+next-env.d.ts
+.qa/
+.vercel/
+migration-report.json

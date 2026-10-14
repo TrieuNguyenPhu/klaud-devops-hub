@@ -1,0 +1,7 @@
+**/gôm nhặt trên mạng
+.git
+node_modules
+.next
+.env*
+.qa
+.vercel
