@@ -43,7 +43,7 @@ for (const filename of buildFiles) {
     assert(!trace.files?.some(file => file.replace(/\\/g, "/").split("/").includes(privateName)), `Private file traced: ${filename}`);
   }
 }
-for (const directory of ["public", "out", "dist"]) {
+for (const directory of ["public", "out", "dist", ".vercel/output"]) {
   const target = path.join(root, directory);
   if (existsSync(target)) for (const filename of files(target)) {
     assert(!filename.split(path.sep).includes(privateName) && !referenceNames.has(path.basename(filename)), `Private material in public output: ${filename}`);
